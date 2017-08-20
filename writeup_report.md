@@ -25,12 +25,12 @@ The goals / steps of this project are the following:
 [image9]: ./examples/bright.png "Brightness Adjusted Image"
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
 * model.py containing the script to create and train the model
@@ -41,32 +41,32 @@ My project includes the following files:
 * track2.mp4 video of track #2 (optional) driving
 * 'examples' directory with writeup document images
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 4 and 256 (model.py lines 163-182). 3x3 filters are followed by 1x1 convolution layers up to depth 1 - steering angle value. Here 1x1 convolution is an equivalent of fully connected layer (Dense) which could be used instead. 
 
 The model includes ReLU layers to introduce nonlinearity, and the data is normalized in the model using a Keras lambda layer (code line 173).
 
 
-####2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce overfitting in the model
 
 The model has ~166K trainable parameters and does not require dropout layers to reduce overfitting. Overfitting is addressed by smaller number of parameters and augmentation of dataset providing unique samples for each training batch. 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 238-243). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track near center.
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 253).
  
@@ -74,15 +74,15 @@ The batch size is set to 32. Greater batch size up to 128 and above provides smo
   
 As dataset is randomly augmented, greater number of epochs provides better steering model. Even if loss is not decreasing new samples still improves the model by reducing overfitting. Thus the number of epochs is set to 30 to reduce total training time to about 90 minutes (173 seconds per epoch).
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 For the first track I used training data provided by Udacity. The data contains a combination of center lane driving, recovering from the left and right sides of the road as well as driving the track in opposite direction. For the second track I recorded three laps of center lane driving in one direction. Accompanied by augmentation the data was sufficient to train successful steering policy. 
 
 For details about how I created the training data, see the next section. 
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 I took the NVIDIA's model described here https://arxiv.org/abs/1604.07316 as a baseline. The model delivered steering policy to complete track1 and 70% of track2. However, it had to be adjusted by adding dropout layers to address overfitting as it has 2,116,983 trainable parameters.
   
@@ -108,7 +108,7 @@ I was aiming at a model capable to drive both tracks with the same weights. As t
  
 At the end of the process, the vehicle is able to drive autonomously around the track near the center and without leaving the road.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 
 The final model architecture (model.py lines 159-209) consisted of a convolution neural network with the following layers:
@@ -144,7 +144,7 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 
 ![alt text][image1]
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 For track #1 I used Udacity dataset which contains center lane driving as well as vehicle recovering from the left side and right sides of the road back to center driving. Here is an example image of center lane driving:
 
